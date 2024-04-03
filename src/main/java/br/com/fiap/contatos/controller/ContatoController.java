@@ -1,7 +1,10 @@
 package br.com.fiap.contatos.controller;
 
+import br.com.fiap.contatos.dto.ContatoCadastroDto;
+import br.com.fiap.contatos.dto.ContatoExibicaoDto;
 import br.com.fiap.contatos.service.ContatoService;
 import br.com.fiap.contatos.model.Contato;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +20,16 @@ public class ContatoController {
 
     @PostMapping("/contatos")
     @ResponseStatus(HttpStatus.CREATED)
-    public Contato gravar(@RequestBody Contato contato){
-        return service.gravar(contato);
+    public  gravar(@RequestBody @Valid ContatoCadastroDto contatoCadastroDto){
+        try{
+            return service.gravar(contatoCadastroDto);
+        }
+
     }
 
     @GetMapping("/contatos/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Contato buscarPeloId(@PathVariable Long id){
+    public ContatoExibicaoDto buscarPeloId(@PathVariable Long id){
         return service.buscarPeloId(id);
     }
 
