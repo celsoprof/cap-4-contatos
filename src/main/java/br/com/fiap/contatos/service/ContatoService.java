@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +53,14 @@ public class ContatoService {
         } else {
             throw new UsuarioNaoEncontradoException("Contato não existe!");
         }
+    }
+
+    public List<ContatoExibicaoDto> listarAniversariantesDoPeriodo(LocalDate dataInicial, LocalDate dataFinal){
+        return repository
+                .listarAniversariantesDoPeriodo(dataInicial, dataFinal)
+                .stream()
+                .map(ContatoExibicaoDto::new)
+                .toList();
     }
 
 }
