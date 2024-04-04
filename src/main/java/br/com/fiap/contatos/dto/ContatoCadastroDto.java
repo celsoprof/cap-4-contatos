@@ -21,7 +21,7 @@ public record ContatoCadastroDto(
         @Size(min = 6, max = 10, message = "A senha deve conter entre 6 e 10 caracteres.")
         String senha,
 
-        @NotBlank(message = "Data de nascimento é obrigatória!")
+        @NotNull(message = "Data de nascimento é obrigatória!")
         LocalDate dataNascimento
 ) {
 }

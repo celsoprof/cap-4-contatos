@@ -20,11 +20,8 @@ public class ContatoController {
 
     @PostMapping("/contatos")
     @ResponseStatus(HttpStatus.CREATED)
-    public  gravar(@RequestBody @Valid ContatoCadastroDto contatoCadastroDto){
-        try{
+    public ContatoExibicaoDto gravar(@RequestBody @Valid ContatoCadastroDto contatoCadastroDto){
             return service.gravar(contatoCadastroDto);
-        }
-
     }
 
     @GetMapping("/contatos/{id}")
