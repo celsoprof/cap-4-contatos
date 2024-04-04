@@ -21,7 +21,7 @@ public class ContatoController {
     @PostMapping("/contatos")
     @ResponseStatus(HttpStatus.CREATED)
     public ContatoExibicaoDto gravar(@RequestBody @Valid ContatoCadastroDto contatoCadastroDto){
-            return service.gravar(contatoCadastroDto);
+        return service.gravar(contatoCadastroDto);
     }
 
     @GetMapping("/contatos/{id}")
@@ -48,5 +48,15 @@ public class ContatoController {
         return service.atualizar(contato);
     }
 
+    @GetMapping("/contatos/nome/{nome}")
+    public ContatoExibicaoDto buscarContatoPeloNome(@PathVariable String nome){
+        return service.buscarContatoPeloNome(nome);
+    }
+
+    //api/contatos?nome=Pedro
+    @GetMapping(value = "/contatos", params = "nome")
+    public ContatoExibicaoDto buscarContatoPorNome(@RequestParam String nome){
+        return service.buscarContatoPeloNome(nome);
+    }
 
 }

@@ -45,4 +45,13 @@ public class ContatoService {
         return repository.save(contato);
     }
 
+    public ContatoExibicaoDto buscarContatoPeloNome(String nome){
+        Optional<Contato> contatoOptional = repository.buscarContatoPeloNome(nome);
+        if(contatoOptional.isPresent()){
+            return new ContatoExibicaoDto(contatoOptional.get());
+        } else {
+            throw new UsuarioNaoEncontradoException("Contato não existe!");
+        }
+    }
+
 }
