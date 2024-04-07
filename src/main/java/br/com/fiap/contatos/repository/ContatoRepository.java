@@ -15,9 +15,13 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
     @Query("SELECT c FROM Contato c WHERE c.nome = :nome")
     Optional<Contato> buscarContatoPeloNome(@Param("nome") String nome);
 
+    Optional<Contato> findByEmail(String email);
+
     @Query("SELECT c FROM Contato c WHERE c.dataNascimento BETWEEN :dataInicial AND :dataFinal")
     List<Contato> listarAniversariantesDoPeriodo(
             @Param("dataInicial") LocalDate dataInicial,
             @Param("dataFinal") LocalDate dataFinal
     );
+
+
 }

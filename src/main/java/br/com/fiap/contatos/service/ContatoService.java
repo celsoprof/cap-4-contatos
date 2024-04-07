@@ -7,8 +7,11 @@ import br.com.fiap.contatos.model.Contato;
 import br.com.fiap.contatos.repository.ContatoRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -34,8 +37,10 @@ public class ContatoService {
         }
     }
 
-    public List<Contato> listarTodos(){
-        return repository.findAll();
+    public Page<ContatoExibicaoDto> listarTodos(Pageable paginacao){
+        return repository
+                .findAll(paginacao)
+                .map(ContatoExibicaoDto::new);
     }
 
     public void excluir(Long id){
@@ -61,6 +66,17 @@ public class ContatoService {
                 .stream()
                 .map(ContatoExibicaoDto::new)
                 .toList();
+    }
+
+    public ContatoExibicaoDto buscarContatoPeloEmail(String email){
+        Optional<Contato> contatoOptional = repository.findByEmail(email);
+
+        if (contatoOptional.isPresent()){
+            return new ContatoExibicaoDto(contatoOptional.get());
+        } else {
+            throw new UsuarioNaoEncontradoException("Contato não encontrado!");
+        }
+
     }
 
 }
